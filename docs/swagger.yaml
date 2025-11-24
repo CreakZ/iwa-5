@@ -1,0 +1,156 @@
+basePath: /api/v1
+definitions:
+  main.Contact:
+    properties:
+      email:
+        example: ivan@mail.ru
+        type: string
+      id:
+        example: "1"
+        type: string
+      name:
+        example: Иван Иванов
+        type: string
+      phone:
+        example: "+79161234567"
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API для управления телефонными контактами
+  title: Contacts API
+  version: "1.0"
+paths:
+  /contacts:
+    get:
+      description: Возвращает список всех телефонных контактов
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Contact'
+            type: array
+      summary: Получить все контакты
+      tags:
+      - contacts
+    post:
+      consumes:
+      - application/json
+      description: Создает новый телефонный контакт
+      parameters:
+      - description: Данные контакта
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/main.Contact'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Contact'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать новый контакт
+      tags:
+      - contacts
+  /contacts/{id}:
+    delete:
+      description: Удаляет контакт по ID
+      parameters:
+      - description: ID контакта
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удалить контакт
+      tags:
+      - contacts
+    get:
+      description: Возвращает контакт по указанному ID
+      parameters:
+      - description: ID контакта
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Contact'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить контакт по ID
+      tags:
+      - contacts
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные контакта по ID
+      parameters:
+      - description: ID контакта
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Обновленные данные контакта
+        in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/main.Contact'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Contact'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Обновить контакт
+      tags:
+      - contacts
+swagger: "2.0"
