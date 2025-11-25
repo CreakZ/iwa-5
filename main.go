@@ -25,7 +25,6 @@ var contacts = []Contact{
 // @title Contacts API
 // @version 1.0
 // @description API для управления телефонными контактами
-// @host localhost:8080
 // @BasePath /api/v1
 func main() {
 	r := gin.Default()
